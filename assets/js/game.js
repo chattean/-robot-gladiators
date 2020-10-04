@@ -4,6 +4,8 @@
 //   console.log(i);
 //   console.log(enemyNames[i] + " is at " + i + " index");
 // }
+window.alert("Welcome to Gladiators!");
+
   /* setting up Variables*/
   var playerName = window.prompt("What is the name of your Robot?");
   var playerHealth= 100;
@@ -21,11 +23,21 @@
   var enemyAttack = "12";
 
 var fight= function(enemyName){
-  while(enemyHealth > 0){
-
-    window.alert("Welcome to Gladiators!");
-
+  while(enemyHealth > 0&& playerHealth > 0){
     var promptFight= prompt("Would you like to Fight or Skip this battle? Enter 'FIGHT' or 'SKIP' to choose.");
+
+    if (promptFight === 'skip' || promptFight === 'SKIP'){
+      alert(playerName + " has chosen to skip the fight!");
+      var confimSkip = confirm("Are you sure you want to Quit?");
+
+      if (confimSkip){
+        alert(playerName + " has decided to skip this fight, goodbye");
+        // subtract money from playerMoney for skipping
+        playerMoney = playerMoney - 10;
+        console.log("playerMoney", playerMoney);
+        break;
+      }
+    }
 
     if (promptFight === 'fight' || promptFight === 'FIGHT'){
       // remove enemy's health by subtracting the amount set in the playerAttack variable
@@ -34,6 +46,9 @@ var fight= function(enemyName){
         // check if Enemy has died
       if (enemyHealth<=0){
         window.alert(enemyName + " has Died");
+        // award player money for winning
+        playerMoney = playerMoney + 20;
+        break;
       }
       else{
         window.alert(enemyName + " still has " + enemyHealth + " health left.");
@@ -45,22 +60,11 @@ var fight= function(enemyName){
       // check to see if the value of the playerHealth variable is greater than 0
       if (playerHealth <= 0) {
         window.alert(playerName + " has died!");
+        break;
       }
       else {
         window.alert(playerName + " still has " + playerHealth + " health left.");
       }
-    // if player choses to skip
-    }else if (promptFight === 'skip' || promptFight === 'SKIP'){
-      alert(playerName + " has chosen to skip the fight!");
-      var confimSkip = confirm("Are you sure you want to Quit?");
-
-      if (confimSkip){
-        alert(playerName + " has decided to skip this fight, goodbye");
-        playerMoney = playerMoney -2;
-      }else
-      fight();
-    }else{
-      alert("You will need to pick a valid option, Try Again!");
     }
   }
 };
